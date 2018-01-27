@@ -1,18 +1,16 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion rootProject.ext.compile_sdk_version
     defaultConfig {
         applicationId "com.github.chojmi.bodyfattracker"
-        minSdkVersion 21
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion rootProject.ext.min_sdk_version
+        targetSdkVersion rootProject.ext.target_sdk_version
+        versionCode rootProject.ext.version_code
+        versionName rootProject.ext.version_name
+        testInstrumentationRunner rootProject.ext.test_instrumentation_runner
     }
     buildTypes {
         release {
@@ -20,15 +18,42 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.android.support:design:26.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.support_lib_version}"
+    implementation "com.android.support:recyclerview-v7:${rootProject.ext.support_lib_version}"
+    implementation "com.android.support:design:${rootProject.ext.support_lib_version}"
+    implementation "com.android.support:support-v13:${rootProject.ext.support_lib_version}"
+    implementation "com.android.support.constraint:constraint-layout:${rootProject.ext.constraint_layout_version}"
+
+    implementation "io.reactivex.rxjava2:rxandroid:${rootProject.ext.rx_android_version}"
+    implementation "io.reactivex.rxjava2:rxjava:${rootProject.ext.rx_java_version}"
+    implementation "com.jakewharton.rxbinding2:rxbinding:${rootProject.ext.rx_bindings_version}"
+    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${rootProject.ext.rx_bindings_version}"
+
+    implementation "com.google.dagger:dagger:${rootProject.ext.dagger_version}"
+    implementation "com.google.dagger:dagger-android-support:${rootProject.ext.dagger_version}"
+    kapt "com.google.dagger:dagger-compiler:${rootProject.ext.dagger_version}"
+
+    implementation "com.dmitrymalkovich.android:material-design-dimens:$rootProject.ext.material_design_dimens_version"
+
+    implementation "com.jakewharton.timber:timber:$rootProject.ext.timber_version"
+
+    testImplementation "junit:junit:$rootProject.ext.junit_version"
+    testImplementation "org.mockito:mockito-core:$rootProject.ext.mockito_version"
+
+    androidTestImplementation "com.android.support.test:runner:$rootProject.ext.test_runner_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.ext.espresso_version"
 }
