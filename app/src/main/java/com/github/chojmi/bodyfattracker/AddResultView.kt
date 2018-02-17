@@ -26,6 +26,7 @@ class AddResultView(context: Context?, attrs: AttributeSet?) : ConstraintLayout(
             }
             results.add(0, MeasurementResult(measurementsSite, add_result_edittext.text.toString().toInt()))
             adapter.notifyItemInserted(0)
+            add_result_summary.text = results.sumBy { it.size }.toString()
         })
     }
 }
