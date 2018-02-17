@@ -1,4 +1,4 @@
-package com.github.chojmi.bodyfattracker
+package com.github.chojmi.bodyfattracker.utils
 
 class Constans {
     companion object {
