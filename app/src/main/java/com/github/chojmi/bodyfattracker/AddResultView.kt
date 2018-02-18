@@ -18,6 +18,7 @@ class AddResultView(context: Context?, attrs: AttributeSet?) : ConstraintLayout(
         adapter = ResultsAdapter(results) {
             results.remove(it)
             adapter.notifyDataSetChanged()
+            refreshAverage()
         }
         add_result_list.adapter = adapter
         add_result_btn.setOnClickListener({
@@ -26,7 +27,11 @@ class AddResultView(context: Context?, attrs: AttributeSet?) : ConstraintLayout(
             }
             results.add(0, MeasurementResult(measurementsSite, add_result_edittext.text.toString().toInt()))
             adapter.notifyItemInserted(0)
-            add_result_summary.text = results.sumBy { it.size }.toString()
+            refreshAverage()
         })
+    }
+
+    private fun refreshAverage() {
+        add_result_summary.text = results.map { it.size }.average().toString()
     }
 }
