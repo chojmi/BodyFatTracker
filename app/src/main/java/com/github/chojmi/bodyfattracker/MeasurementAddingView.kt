@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import com.github.chojmi.bodyfattracker.model.MeasurementsResult
 import com.github.chojmi.bodyfattracker.model.MeasurementsSite
 import com.github.chojmi.bodyfattracker.model.MeasurementsUnit
+import com.github.chojmi.bodyfattracker.utils.getAverage
 import com.github.chojmi.bodyfattracker.utils.getTextAsFloat
 import kotlinx.android.synthetic.main.measurement_adding_view.view.*
 
@@ -41,7 +42,15 @@ class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : Constrain
         })
     }
 
+    fun setResults(newResults : List<MeasurementsResult>) {
+        results.clear()
+        results.addAll(newResults)
+        adapter.notifyDataSetChanged()
+    }
+
+    fun getResults() : List<MeasurementsResult> = results
+
     private fun refreshAverage() {
-        measurement_adding_summary.text =  String.format("%s %s", results.map { it.size }.average().toString(), measurementsUnit.unit)
+        measurement_adding_summary.text =  String.format("%s %s", results.getAverage(), measurementsUnit.unit)
     }
 }
