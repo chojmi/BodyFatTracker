@@ -48,6 +48,9 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     kapt "com.google.dagger:dagger-compiler:${rootProject.ext.dagger_version}"
 
+    implementation "com.mikepenz:iconics-core:3.0.3@aar"
+    implementation 'com.mikepenz:google-material-typeface:3.0.1.2.original@aar'
+
     implementation "com.dmitrymalkovich.android:material-design-dimens:$rootProject.ext.material_design_dimens_version"
 
     implementation "com.jakewharton.timber:timber:$rootProject.ext.timber_version"

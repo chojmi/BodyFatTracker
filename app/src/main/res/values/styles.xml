@@ -17,4 +17,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="AppTheme.ClickableIcon" parent="Base.Widget.AppCompat.ImageButton">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="ico_padding">16dp</item>
+        <item name="ico_size">48dp</item>
+    </style>
 </resources>
