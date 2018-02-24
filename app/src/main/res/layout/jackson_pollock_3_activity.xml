@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.github.chojmi.bodyfattracker.AddMeasurementsJP3Activity">
+    tools:context="com.github.chojmi.bodyfattracker.JacksonPollock3Activity">
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/add_measurements_result_view_pager"
+        android:id="@+id/jackon_pollock_3_result_view_pager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

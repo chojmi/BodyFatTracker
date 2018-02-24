@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddMeasurementsJP3Activity"/>
+            android:name=".JacksonPollock3Activity"/>
     </application>
 
 </manifest>

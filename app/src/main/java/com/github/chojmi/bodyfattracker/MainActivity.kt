@@ -15,7 +15,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.main_activity)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { _ -> startActivity(Intent(this, AddMeasurementsJP3Activity::class.java)) }
+        fab.setOnClickListener { _ -> startActivity(Intent(this, JacksonPollock3Activity::class.java)) }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

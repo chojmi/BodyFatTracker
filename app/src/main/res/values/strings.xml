@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Body Fat Tracker</string>
     <string name="action_settings">Settings</string>
-    <string name="add_result_next">Next</string>
+    <string name="measurement_adding_next">Next</string>
 </resources>
