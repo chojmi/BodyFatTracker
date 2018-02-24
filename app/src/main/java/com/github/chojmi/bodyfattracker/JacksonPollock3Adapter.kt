@@ -8,7 +8,7 @@ import com.github.chojmi.bodyfattracker.model.MeasurementsResult
 import com.github.chojmi.bodyfattracker.model.MeasurementsSite
 import com.github.chojmi.bodyfattracker.model.MeasurementsUnit
 
-class JacksonPollock3Adapter(private val onChangeResultListener: (Map<MeasurementsSite, MeasurementsResult>) -> Unit) : PagerAdapter() {
+class JacksonPollock3Adapter(private val onChangeResultListener: (Map<MeasurementsSite, List<MeasurementsResult>>) -> Unit) : PagerAdapter() {
     private val screens : List<MeasurementsSite> = listOf(MeasurementsSite.CHEST, MeasurementsSite.THIGH, MeasurementsSite.ABDOMEN)
     private val screensState : MutableMap<Int, ScreenState> = mutableMapOf()
 
@@ -17,15 +17,17 @@ class JacksonPollock3Adapter(private val onChangeResultListener: (Map<Measuremen
         val layout = inflater.inflate(R.layout.measurement_adding_view, container, false) as MeasurementAddingView
         layout.measurementsSite = screens[position]
         layout.measurementsUnit = MeasurementsUnit.METRICAL
+        layout.onChangeResultListener = {
+            screensState[position] = ScreenState(it)
+            onChangeResultListener(screensState.mapKeys { screens[it.key] }.mapValues { it.value.results })
+        }
         layout.setResults(screensState.getOrDefault(position, ScreenState()).results)
         container.addView(layout)
         return layout
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        val view : MeasurementAddingView = `object` as MeasurementAddingView
-        screensState[position] = ScreenState(view.getResults())
-        container.removeView(view)
+        container.removeView(`object` as View)
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`

@@ -11,6 +11,7 @@ import com.github.chojmi.bodyfattracker.utils.getTextAsFloat
 import kotlinx.android.synthetic.main.measurement_adding_view.view.*
 
 class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
+    var onChangeResultListener: ((List<MeasurementsResult>) -> Unit)? = null
     var measurementsSite: MeasurementsSite = MeasurementsSite.UNKNOWN
         set(value) {
             field = value
@@ -21,6 +22,7 @@ class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : Constrain
             field = value
             measurement_adding_unit.text = field.unit
         }
+
     private val results: MutableList<MeasurementsResult> = mutableListOf()
     private lateinit var adapter: MeasurementsAdapter
 
@@ -30,6 +32,7 @@ class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : Constrain
             results.remove(it)
             adapter.notifyDataSetChanged()
             refreshAverage()
+            onChangeResultListener?.invoke(results)
         }
         measurement_adding_list.adapter = adapter
         measurement_adding_add_btn.setOnClickListener({
@@ -39,6 +42,7 @@ class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : Constrain
             results.add(0, MeasurementsResult(measurementsSite, measurement_adding_edittext.getTextAsFloat(), measurementsUnit))
             adapter.notifyItemInserted(0)
             refreshAverage()
+            onChangeResultListener?.invoke(results)
         })
     }
 
@@ -46,9 +50,8 @@ class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : Constrain
         results.clear()
         results.addAll(newResults)
         adapter.notifyDataSetChanged()
+        refreshAverage()
     }
-
-    fun getResults() : List<MeasurementsResult> = results
 
     private fun refreshAverage() {
         measurement_adding_summary.text =  String.format("%s %s", results.getAverage(), measurementsUnit.unit)
