@@ -32,6 +32,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "androidx.core:core-ktx:$ktx_version"
     implementation "com.android.support:appcompat-v7:${rootProject.ext.support_lib_version}"
     implementation "com.android.support:recyclerview-v7:${rootProject.ext.support_lib_version}"
     implementation "com.android.support:design:${rootProject.ext.support_lib_version}"
@@ -45,11 +46,10 @@ dependencies {
 
     implementation "com.google.dagger:dagger:${rootProject.ext.dagger_version}"
     implementation "com.google.dagger:dagger-android-support:${rootProject.ext.dagger_version}"
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     kapt "com.google.dagger:dagger-compiler:${rootProject.ext.dagger_version}"
 
-    implementation "com.mikepenz:iconics-core:3.0.3@aar"
-    implementation 'com.mikepenz:google-material-typeface:3.0.1.2.original@aar'
+    implementation "com.mikepenz:iconics-core:${rootProject.ext.iconics_version}@aar"
+    implementation "com.mikepenz:google-material-typeface:${rootProject.ext.google_material_typeface_version}.original@aar"
 
     implementation "com.dmitrymalkovich.android:material-design-dimens:$rootProject.ext.material_design_dimens_version"
 

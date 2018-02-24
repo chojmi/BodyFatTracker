@@ -10,6 +10,7 @@ buildscript {
         test_instrumentation_runner = "android.support.test.runner.AndroidJUnitRunner"
 
         kotlin_version = '1.2.21'
+        ktx_version = '0.1'
         support_lib_version = '27.0.2'
         constraint_layout_version = '1.0.2'
         dagger_version = '2.14.1'
@@ -17,6 +18,8 @@ buildscript {
         rx_java_version = '2.1.9'
         rx_bindings_version = '2.0.0'
         material_design_dimens_version = '1.4'
+        iconics_version = '3.0.3'
+        google_material_typeface_version = '3.0.1.2'
         timber_version = '4.6.0'
 
         junit_version = '4.12'

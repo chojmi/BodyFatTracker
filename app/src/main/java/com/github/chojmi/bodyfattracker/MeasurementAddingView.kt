@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import com.github.chojmi.bodyfattracker.model.MeasurementsResult
 import com.github.chojmi.bodyfattracker.model.MeasurementsSite
 import com.github.chojmi.bodyfattracker.model.MeasurementsUnit
+import com.github.chojmi.bodyfattracker.utils.getTextAsFloat
 import kotlinx.android.synthetic.main.measurement_adding_view.view.*
 
 class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
@@ -34,7 +35,7 @@ class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : Constrain
             if (measurement_adding_edittext.text.isEmpty()) {
                 return@setOnClickListener
             }
-            results.add(0, MeasurementsResult(measurementsSite, measurement_adding_edittext.text.toString().toInt(), measurementsUnit))
+            results.add(0, MeasurementsResult(measurementsSite, measurement_adding_edittext.getTextAsFloat(), measurementsUnit))
             adapter.notifyItemInserted(0)
             refreshAverage()
         })
