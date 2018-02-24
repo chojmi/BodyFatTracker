@@ -6,14 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.github.chojmi.bodyfattracker.model.MeasurementsResult
 import com.github.chojmi.bodyfattracker.model.MeasurementsSite
+import com.github.chojmi.bodyfattracker.model.MeasurementsUnit
 
-class JacksonPollock3Adapter(val onChangeResultListener: (Map<MeasurementsSite, MeasurementsResult>) -> Unit) : PagerAdapter() {
+class JacksonPollock3Adapter(private val onChangeResultListener: (Map<MeasurementsSite, MeasurementsResult>) -> Unit) : PagerAdapter() {
     private val screens : List<MeasurementsSite> = listOf(MeasurementsSite.CHEST, MeasurementsSite.THIGH, MeasurementsSite.ABDOMEN)
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater = LayoutInflater.from(container.context)
         val layout = inflater.inflate(R.layout.measurement_adding_view, container, false) as MeasurementAddingView
         layout.measurementsSite = screens[position]
+        layout.measurementsUnit = MeasurementsUnit.METRICAL
         container.addView(layout)
         return layout
     }

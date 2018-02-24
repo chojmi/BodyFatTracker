@@ -57,7 +57,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:text="cm"
         app:layout_constraintBottom_toBottomOf="@+id/measurement_adding_edittext"
         app:layout_constraintEnd_toStartOf="@+id/measurement_adding_add_btn"
         app:layout_constraintTop_toTopOf="@+id/measurement_adding_edittext"/>
