@@ -22,7 +22,7 @@ class JacksonPollock3Adapter(private val onNextClick: (Int) -> Unit, private val
             onChangeResultListener(screensState.mapKeys { screens[it.key] }.mapValues { it.value.results })
         }
         layout.onNextClickListener = { onNextClick(position) }
-        layout.setResults(screensState.getOrDefault(position, ScreenState()).results)
+        layout.setResults((screensState[position] ?: ScreenState()).results)
         container.addView(layout)
         return layout
     }
