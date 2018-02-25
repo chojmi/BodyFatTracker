@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.measurement_adding_view.view.*
 
 class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
     var onChangeResultListener: ((List<MeasurementsResult>) -> Unit)? = null
+    var onNextClickListener: (() -> Unit)? = null
     var measurementsSite: MeasurementsSite = MeasurementsSite.UNKNOWN
         set(value) {
             field = value
@@ -43,6 +44,11 @@ class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : Constrain
             adapter.notifyItemInserted(0)
             refreshAverage()
             onChangeResultListener?.invoke(results)
+        })
+        measurement_adding_next_btn.setOnClickListener( {
+            if (results.isNotEmpty()) {
+                onNextClickListener?.invoke()
+            }
         })
     }
 

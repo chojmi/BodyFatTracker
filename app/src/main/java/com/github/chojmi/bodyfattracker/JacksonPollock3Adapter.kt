@@ -8,7 +8,7 @@ import com.github.chojmi.bodyfattracker.model.MeasurementsResult
 import com.github.chojmi.bodyfattracker.model.MeasurementsSite
 import com.github.chojmi.bodyfattracker.model.MeasurementsUnit
 
-class JacksonPollock3Adapter(private val onChangeResultListener: (Map<MeasurementsSite, List<MeasurementsResult>>) -> Unit) : PagerAdapter() {
+class JacksonPollock3Adapter(private val onNextClick: (Int) -> Unit, private val onChangeResultListener: (Map<MeasurementsSite, List<MeasurementsResult>>) -> Unit) : PagerAdapter() {
     private val screens : List<MeasurementsSite> = listOf(MeasurementsSite.CHEST, MeasurementsSite.THIGH, MeasurementsSite.ABDOMEN)
     private val screensState : MutableMap<Int, ScreenState> = mutableMapOf()
 
@@ -21,6 +21,7 @@ class JacksonPollock3Adapter(private val onChangeResultListener: (Map<Measuremen
             screensState[position] = ScreenState(it)
             onChangeResultListener(screensState.mapKeys { screens[it.key] }.mapValues { it.value.results })
         }
+        layout.onNextClickListener = { onNextClick(position) }
         layout.setResults(screensState.getOrDefault(position, ScreenState()).results)
         container.addView(layout)
         return layout
