@@ -1,8 +1,12 @@
 package com.github.chojmi.bodyfattracker
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import com.github.chojmi.bodyfattracker.utils.Constans.Companion.EXTRA_AGE
+import com.github.chojmi.bodyfattracker.utils.Constans.Companion.EXTRA_MEASUREMENT
+import com.github.chojmi.bodyfattracker.utils.calculateJacksonPollock3
 import kotlinx.android.synthetic.main.jackson_pollock_3_activity.*
-import timber.log.Timber
 
 class JacksonPollock3Activity : BaseActivity() {
 
@@ -10,7 +14,7 @@ class JacksonPollock3Activity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.jackson_pollock_3_activity)
         jackon_pollock_3_result_view_pager.adapter = JacksonPollock3Adapter {
-            Timber.i(it.toString())
+            setResult(Activity.RESULT_OK, Intent().apply { putExtra(EXTRA_MEASUREMENT, it.calculateJacksonPollock3(intent.getDoubleExtra(EXTRA_AGE, 0.0))) })
         }
     }
 }

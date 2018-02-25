@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Body Fat Tracker</string>
     <string name="action_settings">Settings</string>
+
+    <string name="common_percent_value">%s %%</string>
+
+    <string name="main_type_your_age">Type your age:</string>
+
     <string name="measurement_adding_next">Next</string>
 </resources>

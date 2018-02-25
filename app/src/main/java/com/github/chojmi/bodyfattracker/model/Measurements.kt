@@ -10,7 +10,7 @@ data class JacksonPollock3(val time: Long,
     val measurementsMethod: MeasurementsMethod = MeasurementsMethod.JACKSON_POLLOCK_3
 }
 
-data class MeasurementsResult(val measurementsSite: MeasurementsSite, val size: Float, val measurementsUnit: MeasurementsUnit)
+data class MeasurementsResult(val measurementsSite: MeasurementsSite, val size: Double, val measurementsUnit: MeasurementsUnit)
 
 enum class MeasurementsMethod {
     JACKSON_POLLOCK_3
