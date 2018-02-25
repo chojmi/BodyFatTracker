@@ -3,6 +3,7 @@ package com.github.chojmi.bodyfattracker
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
+import android.view.inputmethod.EditorInfo
 import com.github.chojmi.bodyfattracker.model.MeasurementsResult
 import com.github.chojmi.bodyfattracker.model.MeasurementsSite
 import com.github.chojmi.bodyfattracker.model.MeasurementsUnit
@@ -44,6 +45,13 @@ class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : Constrain
             adapter.notifyItemInserted(0)
             refreshAverage()
             onChangeResultListener?.invoke(results)
+            measurement_adding_edittext.text.clear()
+        })
+        measurement_adding_edittext.setOnEditorActionListener({ _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                measurement_adding_add_btn.callOnClick()
+            }
+            false
         })
         measurement_adding_next_btn.setOnClickListener( {
             if (results.isNotEmpty()) {

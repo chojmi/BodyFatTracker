@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.EditorInfo
 import com.github.chojmi.bodyfattracker.utils.Constans.Companion.EXTRA_AGE
 import com.github.chojmi.bodyfattracker.utils.Constans.Companion.EXTRA_MEASUREMENT
 import com.github.chojmi.bodyfattracker.utils.getTextAsDouble
@@ -31,6 +32,12 @@ class MainActivity : BaseActivity() {
                     JacksonPollock3Activity::class.java).apply { putExtra(EXTRA_AGE, main_age_edittext.getTextAsDouble()) },
                     REQUEST_CODE_JACKON_POLLOCK_3)
         }
+        main_age_edittext.setOnEditorActionListener({ _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                fab.callOnClick()
+            }
+            false
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
