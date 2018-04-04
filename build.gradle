@@ -17,6 +17,7 @@ buildscript {
         rx_android_version = '2.0.1'
         rx_java_version = '2.1.9'
         rx_bindings_version = '2.0.0'
+        glide_version = '4.6.1'
         material_design_dimens_version = '1.4'
         iconics_version = '3.0.3'
         google_material_typeface_version = '3.0.1.2'

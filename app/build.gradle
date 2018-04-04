@@ -49,6 +49,9 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:${rootProject.ext.dagger_version}"
     kapt "com.google.dagger:dagger-compiler:${rootProject.ext.dagger_version}"
 
+    implementation "com.github.bumptech.glide:glide:${rootProject.ext.glide_version}"
+    kapt "com.github.bumptech.glide:compiler:${rootProject.ext.glide_version}"
+
     implementation "com.mikepenz:iconics-core:${rootProject.ext.iconics_version}@aar"
     implementation "com.mikepenz:google-material-typeface:${rootProject.ext.google_material_typeface_version}.original@aar"
 
