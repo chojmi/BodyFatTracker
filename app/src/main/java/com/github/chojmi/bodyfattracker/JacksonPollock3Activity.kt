@@ -11,18 +11,21 @@ import com.github.chojmi.bodyfattracker.utils.calculateJacksonPollock3
 import kotlinx.android.synthetic.main.jackson_pollock_3_activity.*
 
 class JacksonPollock3Activity : BaseActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.jackson_pollock_3_activity)
-        jackon_pollock_3_result_view_pager.adapter = JacksonPollock3Adapter({
+        val adapter = JacksonPollock3Adapter()
+        disposables.addAll(adapter.nextClicks.subscribe {
             if (it == jackon_pollock_3_result_view_pager.size) {
                 finish()
             } else {
                 jackon_pollock_3_result_view_pager.currentItem = it + 1
             }
-        }) {
+        }, adapter.results.subscribe {
             setResult(Activity.RESULT_OK, Intent().apply { putExtra(EXTRA_MEASUREMENT, it.calculateJacksonPollock3(intent.getDoubleExtra(EXTRA_AGE, 0.0))) })
-        }
+        })
+        jackon_pollock_3_result_view_pager.adapter = adapter
     }
 
     fun onMeasurementAddingViewCloseClick(view: View) {

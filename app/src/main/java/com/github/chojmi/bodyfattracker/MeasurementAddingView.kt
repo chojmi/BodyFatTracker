@@ -3,6 +3,7 @@ package com.github.chojmi.bodyfattracker
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.github.chojmi.bodyfattracker.model.MeasurementsResult
 import com.github.chojmi.bodyfattracker.model.MeasurementsSite
@@ -11,11 +12,18 @@ import com.github.chojmi.bodyfattracker.utils.clearGlide
 import com.github.chojmi.bodyfattracker.utils.getAverageText
 import com.github.chojmi.bodyfattracker.utils.getTextAsDouble
 import com.github.chojmi.bodyfattracker.utils.showUrl
+import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxbinding2.widget.RxTextView
+import io.reactivex.Observable
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.measurement_adding_view.view.*
 
 class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
-    var onChangeResultListener: ((List<MeasurementsResult>) -> Unit)? = null
-    var onNextClickListener: (() -> Unit)? = null
+    val nextBtnClicks: Observable<View>
+        get() = RxView.clicks(measurement_adding_next_btn).map { measurement_adding_next_btn }
+    val resultsObservable: Observable<List<MeasurementsResult>>
+        get() = resultsSubject.doOnNext({ refreshAverage() })
     var measurementsSite: MeasurementsSite = MeasurementsSite.UNKNOWN
         set(value) {
             field = value
@@ -28,47 +36,55 @@ class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : Constrain
             measurement_adding_unit.text = field.unit
         }
 
+    private lateinit var disposables: CompositeDisposable
+    private val resultsSubject = PublishSubject.create<List<MeasurementsResult>>()
     private val results: MutableList<MeasurementsResult> = mutableListOf()
+
     private lateinit var adapter: MeasurementsAdapter
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        adapter = MeasurementsAdapter(results) {
-            results.remove(it)
-            adapter.notifyDataSetChanged()
-            refreshAverage()
-            onChangeResultListener?.invoke(results)
-        }
+        adapter = MeasurementsAdapter(results)
+
+        adapter.deleteClicks
+                .doOnNext({
+                    results.remove(it)
+                    adapter.notifyDataSetChanged()
+                }).map { results }
+                .subscribe(resultsSubject)
+
+        RxView.clicks(measurement_adding_add_btn)
+                .filter({ measurement_adding_edittext.text.isNotBlank() })
+                .doOnNext({
+                    results.add(0, MeasurementsResult(measurementsSite, measurement_adding_edittext.getTextAsDouble(), measurementsUnit))
+                    adapter.notifyItemInserted(0)
+                    measurement_adding_edittext.text.clear()
+                }).map { results }
+                .subscribe(resultsSubject)
+
         measurement_adding_list.adapter = adapter
-        measurement_adding_add_btn.setOnClickListener({
-            if (measurement_adding_edittext.text.isBlank()) {
-                return@setOnClickListener
-            }
-            results.add(0, MeasurementsResult(measurementsSite, measurement_adding_edittext.getTextAsDouble(), measurementsUnit))
-            adapter.notifyItemInserted(0)
-            refreshAverage()
-            onChangeResultListener?.invoke(results)
-            measurement_adding_edittext.text.clear()
-        })
-        measurement_adding_edittext.setOnEditorActionListener({ _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                measurement_adding_add_btn.callOnClick()
-            }
-            false
-        })
-        measurement_adding_next_btn.setOnClickListener( {
-            if (results.isNotEmpty()) {
-                onNextClickListener?.invoke()
-            }
-        })
-        measurement_adding_close
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        disposables = CompositeDisposable()
+        disposables.add(RxTextView.editorActionEvents(measurement_adding_edittext)
+                .filter({ it.actionId() == EditorInfo.IME_ACTION_NEXT })
+                .forEach({
+                    measurement_adding_add_btn.callOnClick()
+                }))
+    }
+
+    override fun onDetachedFromWindow() {
+        disposables.clear()
+        super.onDetachedFromWindow()
     }
 
     fun clearGlide() {
         measurement_adding_image.clearGlide()
     }
 
-    fun setResults(newResults : List<MeasurementsResult>) {
+    fun setResults(newResults: List<MeasurementsResult>) {
         results.clear()
         results.addAll(newResults)
         adapter.notifyDataSetChanged()
@@ -76,6 +92,6 @@ class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : Constrain
     }
 
     private fun refreshAverage() {
-        measurement_adding_summary.text =  String.format("%s %s", results.getAverageText(), measurementsUnit.unit)
+        measurement_adding_summary.text = String.format("%s %s", results.getAverageText(), measurementsUnit.unit)
     }
 }

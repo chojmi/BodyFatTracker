@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.main_activity.*
 class MainActivity : BaseActivity() {
 
     companion object {
-        const val REQUEST_CODE_JACKON_POLLOCK_3 = 1
+        const val REQUEST_CODE_JACKSON_POLLOCK_3 = 1
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +30,7 @@ class MainActivity : BaseActivity() {
             }
             startActivityForResult(Intent(this,
                     JacksonPollock3Activity::class.java).apply { putExtra(EXTRA_AGE, main_age_edittext.getTextAsDouble()) },
-                    REQUEST_CODE_JACKON_POLLOCK_3)
+                    REQUEST_CODE_JACKSON_POLLOCK_3)
         }
         main_age_edittext.setOnEditorActionListener({ _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -47,7 +47,7 @@ class MainActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            REQUEST_CODE_JACKON_POLLOCK_3 -> {
+            REQUEST_CODE_JACKSON_POLLOCK_3 -> {
                 if (resultCode == Activity.RESULT_OK) {
                     main_result_text.text = getString(R.string.common_percent_value, data?.getDoubleExtra(EXTRA_MEASUREMENT, 0.0).toString())
                 }
