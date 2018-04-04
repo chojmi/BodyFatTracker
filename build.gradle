@@ -9,7 +9,7 @@ buildscript {
         version_name = "1.0.0"
         test_instrumentation_runner = "android.support.test.runner.AndroidJUnitRunner"
 
-        kotlin_version = '1.2.30'
+        kotlin_version = '1.2.31'
         ktx_version = '0.3'
         support_lib_version = '27.1.0'
         constraint_layout_version = '1.0.2'

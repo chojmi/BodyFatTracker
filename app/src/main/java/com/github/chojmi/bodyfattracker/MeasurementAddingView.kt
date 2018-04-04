@@ -7,8 +7,10 @@ import android.view.inputmethod.EditorInfo
 import com.github.chojmi.bodyfattracker.model.MeasurementsResult
 import com.github.chojmi.bodyfattracker.model.MeasurementsSite
 import com.github.chojmi.bodyfattracker.model.MeasurementsUnit
+import com.github.chojmi.bodyfattracker.utils.clearGlide
 import com.github.chojmi.bodyfattracker.utils.getAverageText
 import com.github.chojmi.bodyfattracker.utils.getTextAsDouble
+import com.github.chojmi.bodyfattracker.utils.showUrl
 import kotlinx.android.synthetic.main.measurement_adding_view.view.*
 
 class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
@@ -18,6 +20,7 @@ class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : Constrain
         set(value) {
             field = value
             measurement_adding_title.text = field.name
+            measurement_adding_image.showUrl(field.jpgUrl)
         }
     var measurementsUnit: MeasurementsUnit = MeasurementsUnit.UNKNOWN
         set(value) {
@@ -58,6 +61,11 @@ class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : Constrain
                 onNextClickListener?.invoke()
             }
         })
+        measurement_adding_close
+    }
+
+    fun clearGlide() {
+        measurement_adding_image.clearGlide()
     }
 
     fun setResults(newResults : List<MeasurementsResult>) {

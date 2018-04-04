@@ -1,6 +1,8 @@
 package com.github.chojmi.bodyfattracker.utils
 
 import android.widget.EditText
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 import com.github.chojmi.bodyfattracker.model.MeasurementsResult
 import com.github.chojmi.bodyfattracker.model.MeasurementsSite
 
@@ -24,3 +26,12 @@ fun Map<MeasurementsSite, List<MeasurementsResult>>.calculateJacksonPollock3(age
     val bodyDensity = 1.10938 - (0.0008267 * sumOfSkinfolds) + (0.0000016 * sumOfSkinfolds * sumOfSkinfolds) - (0.0002574 * age)
     return (495 / bodyDensity) - 450
 }
+
+fun ImageView.showUrl(url: String) {
+    Glide.with(this).load(url).into(this)
+}
+
+fun ImageView.clearGlide() {
+    Glide.with(this).clear(this)
+}
+

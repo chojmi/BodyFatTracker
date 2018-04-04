@@ -9,14 +9,15 @@ import kotlinx.android.synthetic.main.measurements_view.view.*
 
 class MeasurementsAdapter(private val results: List<MeasurementsResult>,
                           private val onDeleteListener: (MeasurementsResult) -> Unit) : RecyclerView.Adapter<MeasurementsAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.measurements_view, parent, false))
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.measurements_view, parent, false))
     }
 
     override fun getItemCount(): Int = results.size
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        holder?.bind(results[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(results[position])
     }
 
     inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {

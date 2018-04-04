@@ -28,7 +28,9 @@ class JacksonPollock3Adapter(private val onNextClick: (Int) -> Unit, private val
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        container.removeView(`object` as View)
+        val view = `object` as MeasurementAddingView
+        view.clearGlide()
+        container.removeView(view)
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
