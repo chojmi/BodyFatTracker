@@ -8,18 +8,20 @@ import com.github.chojmi.bodyfattracker.model.MeasurementsResult
 import com.github.chojmi.bodyfattracker.model.MeasurementsSite
 import com.github.chojmi.bodyfattracker.model.MeasurementsUnit
 import io.reactivex.Observable
+import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
+import java.util.*
 
 class JacksonPollock3Adapter : PagerAdapter() {
     val results: Observable<Map<MeasurementsSite, List<MeasurementsResult>>>
         get() = resultsSubject
     val nextClicks: Observable<Int>
         get() = nextClicksSubject
+    val screens: List<MeasurementsSite> = listOf(MeasurementsSite.CHEST, MeasurementsSite.THIGH, MeasurementsSite.ABDOMEN)
 
-    private val screens: List<MeasurementsSite> = listOf(MeasurementsSite.CHEST, MeasurementsSite.THIGH, MeasurementsSite.ABDOMEN)
     private val screensState: MutableMap<Int, ScreenState> = mutableMapOf()
     private val nextClicksSubject = PublishSubject.create<Int>()
-    private val resultsSubject = PublishSubject.create<Map<MeasurementsSite, List<MeasurementsResult>>>()
+    private val resultsSubject = BehaviorSubject.createDefault<Map<MeasurementsSite, List<MeasurementsResult>>>(Collections.emptyMap())
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater = LayoutInflater.from(container.context)
