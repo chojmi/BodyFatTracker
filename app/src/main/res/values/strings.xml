@@ -7,4 +7,5 @@
     <string name="main_type_your_age">Type your age:</string>
 
     <string name="measurement_adding_next">Next</string>
+    <string name="measurement_adding_close">Close</string>
 </resources>

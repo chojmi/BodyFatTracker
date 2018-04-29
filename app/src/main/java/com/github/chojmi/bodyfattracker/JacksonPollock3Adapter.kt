@@ -36,6 +36,7 @@ class JacksonPollock3Adapter : PagerAdapter() {
 
         layout.nextBtnClicks.map { _ -> position }.subscribe(nextClicksSubject)
         layout.screenState = screensState[position] ?: MeasurementAddingView.ScreenState()
+        if(position == screens.size -1) layout.setClosingButtonText(R.string.measurement_adding_close)
 
         container.addView(layout)
         return layout

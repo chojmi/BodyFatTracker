@@ -1,6 +1,7 @@
 package com.github.chojmi.bodyfattracker
 
 import android.content.Context
+import android.support.annotation.StringRes
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.view.View
@@ -91,6 +92,10 @@ class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : Constrain
 
     fun clearGlide() {
         measurement_adding_image.clearGlide()
+    }
+
+    fun setClosingButtonText(@StringRes textResId: Int) {
+        measurement_adding_next_btn.setText(textResId)
     }
 
     private fun refreshAverage() {
