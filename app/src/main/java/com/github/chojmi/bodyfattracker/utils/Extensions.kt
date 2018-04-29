@@ -7,7 +7,7 @@ import com.github.chojmi.bodyfattracker.model.MeasurementsResult
 import com.github.chojmi.bodyfattracker.model.MeasurementsSite
 
 fun EditText.getTextAsDouble(): Double {
-    return text.toString().toDouble()
+    return if (text.isNotBlank()) text.toString().toDouble() else  0.0
 }
 
 fun List<MeasurementsResult>.getAverage(): Double {

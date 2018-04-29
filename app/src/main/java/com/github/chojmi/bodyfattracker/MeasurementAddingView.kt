@@ -24,6 +24,15 @@ class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : Constrain
         get() = RxView.clicks(measurement_adding_next_btn).map { measurement_adding_next_btn }
     val resultsObservable: Observable<List<MeasurementsResult>>
         get() = resultsSubject.doOnNext({ refreshAverage() })
+    var screenState: ScreenState
+        set(value) {
+            results.clear()
+            results.addAll(screenState.results)
+            adapter.notifyDataSetChanged()
+            refreshAverage()
+            measurement_adding_edittext.append(value.typedResult)
+        }
+        get() = ScreenState(results, measurement_adding_edittext.text.toString())
     var measurementsSite: MeasurementsSite = MeasurementsSite.UNKNOWN
         set(value) {
             field = value
@@ -84,14 +93,9 @@ class MeasurementAddingView(context: Context?, attrs: AttributeSet?) : Constrain
         measurement_adding_image.clearGlide()
     }
 
-    fun setResults(newResults: List<MeasurementsResult>) {
-        results.clear()
-        results.addAll(newResults)
-        adapter.notifyDataSetChanged()
-        refreshAverage()
-    }
-
     private fun refreshAverage() {
         measurement_adding_summary.text = String.format("%s %s", results.getAverageText(), measurementsUnit.unit)
     }
+
+    class ScreenState(val results: List<MeasurementsResult> = emptyList(), var typedResult: String = "")
 }

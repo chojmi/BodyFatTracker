@@ -9,7 +9,7 @@ buildscript {
         version_name = "1.0.0"
         test_instrumentation_runner = "android.support.test.runner.AndroidJUnitRunner"
 
-        kotlin_version = '1.2.31'
+        kotlin_version = '1.2.41'
         ktx_version = '0.3'
         support_lib_version = '27.1.0'
         constraint_layout_version = '1.0.2'
@@ -34,7 +34,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong

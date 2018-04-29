@@ -19,7 +19,7 @@ class JacksonPollock3Adapter : PagerAdapter() {
         get() = nextClicksSubject
     val screens: List<MeasurementsSite> = listOf(MeasurementsSite.CHEST, MeasurementsSite.THIGH, MeasurementsSite.ABDOMEN)
 
-    private val screensState: MutableMap<Int, ScreenState> = mutableMapOf()
+    private val screensState: MutableMap<Int, MeasurementAddingView.ScreenState> = mutableMapOf()
     private val nextClicksSubject = PublishSubject.create<Int>()
     private val resultsSubject = BehaviorSubject.createDefault<Map<MeasurementsSite, List<MeasurementsResult>>>(Collections.emptyMap())
 
@@ -30,13 +30,12 @@ class JacksonPollock3Adapter : PagerAdapter() {
         layout.measurementsUnit = MeasurementsUnit.METRICAL
 
         layout.resultsObservable
-                .doOnNext({ screensState[position] = ScreenState(it) })
+                .doOnNext({ screensState[position] = MeasurementAddingView.ScreenState(it) })
                 .map { screensState.mapKeys { screens[it.key] }.mapValues { it.value.results } }
                 .subscribe(resultsSubject)
 
         layout.nextBtnClicks.map { _ -> position }.subscribe(nextClicksSubject)
-
-        layout.setResults((screensState[position] ?: ScreenState()).results)
+        layout.screenState = screensState[position] ?: MeasurementAddingView.ScreenState()
 
         container.addView(layout)
         return layout
@@ -44,6 +43,7 @@ class JacksonPollock3Adapter : PagerAdapter() {
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         val view = `object` as MeasurementAddingView
+        screensState[position] = view.screenState
         view.clearGlide()
         container.removeView(view)
     }
@@ -52,5 +52,3 @@ class JacksonPollock3Adapter : PagerAdapter() {
 
     override fun getCount(): Int = screens.size
 }
-
-class ScreenState(val results: List<MeasurementsResult> = emptyList())
