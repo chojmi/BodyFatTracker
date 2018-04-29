@@ -11,7 +11,7 @@ fun EditText.getTextAsDouble(): Double {
 }
 
 fun List<MeasurementsResult>.getAverage(): Double {
-    return map { it.size }.average()
+    return if(isEmpty()) 0.0 else map { it.size }.average()
 }
 
 fun List<MeasurementsResult>.getAverageText(): String {
