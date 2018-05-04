@@ -44,7 +44,7 @@ class JacksonPollock3Activity : BaseActivity() {
                         onFinish.invoke()
                     } else {
                         jackon_pollock_3_result_view_pager.currentItem = it
-                        Toast.makeText(this, "There is lacking some data here...", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.lacking_data_alert), Toast.LENGTH_SHORT).show()
                     }
                 }))
 

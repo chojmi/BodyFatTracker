@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.github.chojmi.bodyfattracker.utils.Constans.Companion.EXTRA_AGE
 import com.github.chojmi.bodyfattracker.utils.Constans.Companion.EXTRA_MEASUREMENT
@@ -61,5 +62,9 @@ class MainActivity : BaseActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun onShowDiagnosticScreenClick(view: View) {
+        startActivity(Intent(this, DiagnosticActivity::class.java))
     }
 }

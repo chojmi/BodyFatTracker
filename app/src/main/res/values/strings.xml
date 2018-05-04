@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Body Fat Tracker</string>
     <string name="action_settings">Settings</string>
+    <string name="show_diagnostic_screen">Show diagnostic screen</string>
+    <string name="lacking_data_alert">There is lacking some data here…</string>
 
     <string name="common_percent_value">%s %%</string>
 
