@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.chojmi.bodyfattracker.MeasurementAddingView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/measurement_adding_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Title"/>
+
+    <ImageView
+        android:id="@+id/measurement_adding_image"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/measurement_adding_image_height"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/measurement_adding_title"
+        tools:src="@mipmap/ic_launcher_round"/>
+
+    <ImageButton
+        android:id="@+id/measurement_adding_close"
+        style="@style/AppTheme.ClickableIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onMeasurementAddingViewCloseClick"
+        app:ico_icon="gmd_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@android:drawable/ic_menu_close_clear_cancel"/>
+
+    <ImageButton
+        android:id="@+id/measurement_adding_add_btn"
+        style="@style/AppTheme.ClickableIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:ico_icon="gmd_add"
+        app:layout_constraintBottom_toBottomOf="@+id/measurement_adding_edittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/measurement_adding_edittext"
+        tools:src="@android:drawable/ic_media_play"/>
+
+    <TextView
+        android:id="@+id/measurement_adding_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/measurement_adding_edittext"
+        app:layout_constraintEnd_toStartOf="@+id/measurement_adding_add_btn"
+        app:layout_constraintTop_toTopOf="@+id/measurement_adding_edittext"/>
+
+    <EditText
+        android:id="@+id/measurement_adding_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:ems="4"
+        android:gravity="end"
+        android:inputType="numberDecimal"
+        android:maxLength="4"
+        app:layout_constraintEnd_toStartOf="@+id/measurement_adding_unit"
+        app:layout_constraintTop_toBottomOf="@+id/measurement_adding_image"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/measurement_adding_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/measurement_adding_summary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/measurement_adding_edittext"/>
+
+    <TextView
+        android:id="@+id/measurement_adding_summary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:gravity="end"
+        app:layout_constraintBottom_toTopOf="@+id/measurement_adding_next_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/measurement_adding_list"
+        tools:text="25 cm"/>
+
+    <Button
+        android:id="@+id/measurement_adding_next_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/measurement_adding_next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+</com.github.chojmi.bodyfattracker.MeasurementAddingView>
